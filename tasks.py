@@ -9,4 +9,4 @@ def echo_response(message):
 
 def djn_response(message):
     if message["type"] == "message":
-        ReplyToActivity(fill=djn_reply, text=message["text"]).send()
+        ReplyToActivity(fill=message, text=djn_reply).send()
