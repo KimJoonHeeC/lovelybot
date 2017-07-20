@@ -10,11 +10,18 @@ def echo_response(message):
     print(message)
 
     if message["type"] == "message":
-        if "bitcoin" in message["text"] or "비트코인" in message["text"]:
-            r = requests.get("https://api.korbit.co.kr/v1/ticker")
-            bitcoin_price = r.json()["last"]
-            current_time = datetime.fromtimestamp(r.json()['timestamp'] / 1000).strftime('%Y-%m-%d %H:%M:%S')
-            msg = "bitcoin price is %s at %s" % (bitcoin_price, current_time)
+        #if "bitcoin" in message["text"] or "비트코인" in message["text"]:
+        if "bitcoin" or "비트코인" or "ethereum" or "이더리움" in message["text"]:
+            r_bit = requests.get("https://api.korbit.co.kr/v1/ticker?currency_pair=btc_krw")
+            r_etc = requests.get("https://api.korbit.co.kr/v1/ticker?currency_pair=etc_krw")
+            r_eth = requests.get("https://api.korbit.co.kr/v1/ticker?currency_pair=eth_krw")
+            bitcoin_price = r_bit.json()["last"]
+            eclassic_price = r_etc.json()["last"]
+            ethe_price = r_eth.json()["last"]
+            current_time = datetime.fromtimestamp(r_bit.json()['timestamp'] / 1000).strftime('%Y-%m-%d %H:%M:%S')
+            msg = "at %s, \tbitcoin price is %s won. " \
+                  "\tethereum classic price is %s won. \tethereum price is %s won." \
+                  % (current_time, bitcoin_price, eclassic_price, ethe_price)
             print(msg)
             ReplyToActivity(fill=message, text=msg).send()
 
