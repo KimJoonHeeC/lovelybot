@@ -10,8 +10,7 @@ def echo_response(message):
     print(message)
 
     if message["type"] == "message":
-        #if "bitcoin" in message["text"] or "비트코인" in message["text"]:
-        if "bitcoin" or "비트코인" or "ethereum" or "이더리움" in message["text"]:
+        if "bitcoin" in message["text"] or "비트코인" in message["text"] or "ethereum" in message["text"] or "이더리움" in message["text"]:
             r_bit = requests.get("https://api.korbit.co.kr/v1/ticker?currency_pair=btc_krw")
             r_etc = requests.get("https://api.korbit.co.kr/v1/ticker?currency_pair=etc_krw")
             r_eth = requests.get("https://api.korbit.co.kr/v1/ticker?currency_pair=eth_krw")
@@ -48,13 +47,13 @@ def echo_response(message):
             msg = "emotion score is %s\n" % emo_score
 
             if emo_score > 0.5:
-                msg = msg + "\nYou look happy!"
+                msg = msg + "You look happy!"
 
             elif emo_score == 0.5:
-                msg = msg + "\nI'm not sure how you feel."
+                msg = msg + "I'm not sure how you feel."
 
             else:
-                msg = msg + "\nYou look unhappy.."
+                msg = msg + "You look unhappy.."
 
             print(msg)
             ReplyToActivity(fill=message, text=msg).send()
