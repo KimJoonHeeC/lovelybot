@@ -19,8 +19,8 @@ def echo_response(message):
             eclassic_price = r_etc.json()["last"]
             ethe_price = r_eth.json()["last"]
             current_time = datetime.fromtimestamp(r_bit.json()['timestamp'] / 1000).strftime('%Y-%m-%d %H:%M:%S')
-            msg = "at %s, \tbitcoin price is %s won. " \
-                  "\tethereum classic price is %s won. \tethereum price is %s won." \
+            msg = "at %s, \nbitcoin price is %s won. " \
+                  "\nethereum classic price is %s won. \nethereum price is %s won." \
                   % (current_time, bitcoin_price, eclassic_price, ethe_price)
             print(msg)
             ReplyToActivity(fill=message, text=msg).send()
